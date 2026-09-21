@@ -1,0 +1,7 @@
+expression folder_path = "C:\Users\NIthya Sree\Downloads\powerbi\" meta [IsParameterQuery=true, Type="Any", IsParameterQueryRequired=true]
+	lineageTag: 166f30fc-b051-4337-8935-17b9cd321ce8
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

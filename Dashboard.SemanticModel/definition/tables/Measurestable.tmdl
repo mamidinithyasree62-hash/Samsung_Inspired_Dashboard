@@ -1,0 +1,75 @@
+table Measurestable
+	lineageTag: 05913fc1-a5ee-4260-85c5-74aee9abc773
+
+	measure total_revenue = SUM(fact_sales[net_revenue])
+		lineageTag: 415fc724-fd54-46be-9790-8aa13c823f8f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Profit = SUM(fact_sales[profit])
+		lineageTag: b429e9c3-451d-445f-aecd-c12ddce0dab7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Profit_Margin %' = DIVIDE([Profit],[total_revenue])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 0510eb07-a0d5-4e5f-be89-5c43a3c0a089
+
+	measure Total_Sales_quantity = SUM(fact_sales[quantity_sold])
+		formatString: 0
+		lineageTag: 639dca9c-6826-487e-b8cf-cfe73669522a
+
+	measure Total_Sales_cost = SUM(fact_procurement[total_cost])
+		lineageTag: 33c70d9b-a409-4cf2-9d70-b35b9fbcd93b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Inventory_value = Sum(fact_inventory[stock_level])
+		formatString: 0
+		lineageTag: 94db742d-cb66-4344-9c63-82b3600c6c10
+
+	measure Avg_lead_time = AVERAGE(fact_procurement[lead_time_days])
+		formatString: 0
+		lineageTag: a07b9642-a54d-44f9-90b0-a169e5d91dcb
+
+	measure Total_shipment = DISTINCTCOUNT(fact_shipment[shipment_id])
+		formatString: 0%;-0%;0%
+		lineageTag: fcd353c8-b10e-420c-9653-f6b15975de79
+
+	measure 'perfect_order %' = var perfectOrder = CALCULATE([Total_shipment],fact_shipment[status]="Delivered",fact_production[defect_rate_pct]<1)RETURN DIVIDE (perfectOrder,[Total_shipment])
+		formatString: 0%;-0%;0%
+		lineageTag: b5c557e5-7bda-4cce-b2e6-a3e58ce1d6ef
+
+	measure Order_Qty = SUM(fact_procurement[order_quantity])
+		formatString: 0
+		lineageTag: 9d9885aa-c761-4c1a-b8c7-4670f21253a0
+
+	measure Total_shipment_quantity = SUM(fact_shipment[quantity])
+		formatString: 0
+		lineageTag: 3df433f4-8f0c-45cd-bac6-8f33ed133744
+
+	measure Total_Delivered_quantity = CALCULATE([Total_Sales_quantity],fact_shipment[status]="Delivered")
+		formatString: 0
+		lineageTag: 8ce00c4a-8c95-4d33-a7f8-955efc045b7c
+
+	measure Total_Delay = CALCULATE([Total_shipment],fact_shipment[status]="Delayed")
+		formatString: 0
+		lineageTag: 6df743ea-07bd-4db9-9724-7d78cb9bf038
+
+	column Column
+		formatString: 0
+		lineageTag: a5cdb13c-1a8f-4084-8fd4-f932cdc3fbbd
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Measurestable = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 889140925843485fb358434032387dd6
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

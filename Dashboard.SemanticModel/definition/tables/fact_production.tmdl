@@ -1,0 +1,91 @@
+table fact_production
+	lineageTag: ac879df2-d5f9-450f-8560-50cf5d18e691
+
+	column production_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e46b4bd2-a56a-4efc-adb8-91401348b05c
+		summarizeBy: sum
+		sourceColumn: production_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 64a1872e-98ea-46e8-90d4-70dd5acb7c17
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 96f53785-2ddb-4565-ba95-ce7affc3ce9d
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column facility_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c8bd08d-b02d-4cd3-a0b8-863180ba8bbc
+		summarizeBy: none
+		sourceColumn: facility_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_produced
+		dataType: int64
+		formatString: 0
+		lineageTag: 7c0dee83-3483-47c2-a153-7ce93cdb5963
+		summarizeBy: sum
+		sourceColumn: quantity_produced
+
+		annotation SummarizationSetBy = Automatic
+
+	column defective_units
+		dataType: int64
+		formatString: 0
+		lineageTag: 87d9be7e-1ed0-4b1d-9c9c-ee42967738c0
+		summarizeBy: sum
+		sourceColumn: defective_units
+
+		annotation SummarizationSetBy = Automatic
+
+	column defect_rate_pct
+		dataType: double
+		lineageTag: b79c6bff-3a71-4501-9561-aa272c8aa6ee
+		summarizeBy: sum
+		sourceColumn: defect_rate_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column batch_number
+		dataType: string
+		lineageTag: 0f725280-d13a-489e-a8fe-ef8bfcdf4e6d
+		summarizeBy: none
+		sourceColumn: batch_number
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_production = m
+		mode: import
+		source =
+				let
+				    Source = Folder,
+				    #"C:\Users\NIthya Sree\Downloads\powerbi\_fact_production csv" = Source{[#"Folder Path"=folder_path,Name="fact_production.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\NIthya Sree\Downloads\powerbi\_fact_production csv",[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"production_id", Int64.Type}, {"date_key", Int64.Type}, {"product_id", Int64.Type}, {"facility_id", Int64.Type}, {"quantity_produced", Int64.Type}, {"defective_units", Int64.Type}, {"defect_rate_pct", type number}, {"batch_number", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

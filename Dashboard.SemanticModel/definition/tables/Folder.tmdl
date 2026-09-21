@@ -1,0 +1,81 @@
+table Folder
+	lineageTag: 4dc9bbcc-0fbc-424f-b22d-a15ab930456c
+
+	column Name
+		dataType: string
+		lineageTag: 6822b6ea-1294-4b07-8f50-992b4b622a0a
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Extension
+		dataType: string
+		lineageTag: 6e00b850-7a2c-48ad-b64d-3fc669f39e1f
+		summarizeBy: none
+		sourceColumn: Extension
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date accessed'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: fce618c9-3bc6-4469-a3ac-5cffa9266ae7
+		summarizeBy: none
+		sourceColumn: Date accessed
+
+		variation Variation
+			isDefault
+			relationship: 369cb9df-832a-472f-8df4-ee984d971cc8
+			defaultHierarchy: LocalDateTable_52df39ed-83c4-450e-9148-43fc5c7ae1d4.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date modified'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2f963b80-a37b-44d8-9e75-73140ca483d3
+		summarizeBy: none
+		sourceColumn: Date modified
+
+		variation Variation
+			isDefault
+			relationship: c07e48bd-50e2-4db9-b0e6-6ac08f0ac1ca
+			defaultHierarchy: LocalDateTable_b7b38b1c-8855-40f9-9ad0-1ce63f9cb329.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Date created'
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 07cb1922-3ca0-4c9f-b4dc-06bef159b00f
+		summarizeBy: none
+		sourceColumn: Date created
+
+		variation Variation
+			isDefault
+			relationship: dc9a085b-9e3b-46c7-a6da-1b6e91a58f05
+			defaultHierarchy: LocalDateTable_c77e8e21-9c66-4e75-ab8b-72ed149bec14.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Folder Path'
+		dataType: string
+		lineageTag: 16c46d79-c362-4797-9460-03e76c184cc2
+		summarizeBy: none
+		sourceColumn: Folder Path
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Folder = m
+		mode: import
+		source =
+				let
+				  Source = Folder.Files(folder_path)
+				in
+				  Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,60 @@
+relationship 369cb9df-832a-472f-8df4-ee984d971cc8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Folder.'Date accessed'
+	toColumn: LocalDateTable_52df39ed-83c4-450e-9148-43fc5c7ae1d4.Date
+
+relationship c07e48bd-50e2-4db9-b0e6-6ac08f0ac1ca
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Folder.'Date modified'
+	toColumn: LocalDateTable_b7b38b1c-8855-40f9-9ad0-1ce63f9cb329.Date
+
+relationship dc9a085b-9e3b-46c7-a6da-1b6e91a58f05
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Folder.'Date created'
+	toColumn: LocalDateTable_c77e8e21-9c66-4e75-ab8b-72ed149bec14.Date
+
+relationship 71e809eb-2671-4db0-a5c3-f1688ab313d4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_date.date
+	toColumn: LocalDateTable_6075b135-d12c-4079-9761-b26c39fe229b.Date
+
+relationship 69aa8609-3f2c-8f7a-ac9d-d04a219a3a03
+	fromColumn: fact_sales.product_id
+	toColumn: dim_product.product_id
+
+relationship 98f3460b-8492-0e92-2e64-6e01d03e2c5e
+	fromColumn: fact_shipment.product_id
+	toColumn: dim_product.product_id
+
+relationship bfd8ef83-7fd5-d19b-e5e3-d4e72505bbe2
+	fromColumn: fact_production.product_id
+	toColumn: dim_product.product_id
+
+relationship 3eeaec2a-7bfb-bf9a-ead0-07d1744c0b06
+	fromColumn: fact_procurement.product_id
+	toColumn: dim_product.product_id
+
+relationship 26001fed-ca3d-07a2-fe29-5ac108dec0bb
+	fromColumn: fact_inventory.product_id
+	toColumn: dim_product.product_id
+
+relationship 38598544-1ac7-1f7f-7336-2564eb509bb6
+	fromColumn: fact_inventory.date_key
+	toColumn: dim_date.date_key
+
+relationship 64bbc470-f6da-45be-2f99-351a080b6b23
+	fromColumn: fact_production.date_key
+	toColumn: dim_date.date_key
+
+relationship 949d0df3-11e4-db25-5968-a0f1cb22c07b
+	fromColumn: fact_shipment.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship e1b3658e-0bf6-8bef-b69d-7e02385447f6
+	fromColumn: fact_sales.customer_id
+	toColumn: dim_customer.customer_id
+
+relationship cc57a9f4-08d3-bdb0-71cf-a1e0cd2a7b3a
+	fromColumn: fact_production.facility_id
+	toColumn: dim_facility.facility_id
+

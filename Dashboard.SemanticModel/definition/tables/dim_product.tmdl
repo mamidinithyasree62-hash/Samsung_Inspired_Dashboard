@@ -1,0 +1,114 @@
+table dim_product
+	lineageTag: 38fa0738-1c6e-452b-b2f9-1595b627b5eb
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ea997fb-fc82-4409-9cf0-6cebff85b3eb
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: string
+		lineageTag: 76930425-06dc-429a-8869-894d46a38dc2
+		summarizeBy: none
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 8aeaf020-97ce-4785-b7b9-c0c84d80398b
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: e4430112-591f-44f1-88ab-f04d4d2b9f99
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_line
+		dataType: string
+		lineageTag: c839adcf-8d02-442a-a313-b136ee65d372
+		summarizeBy: none
+		sourceColumn: product_line
+
+		annotation SummarizationSetBy = Automatic
+
+	column spec
+		dataType: string
+		lineageTag: 0cac2cb6-458a-45f4-bc2e-efb6e1e89052
+		summarizeBy: none
+		sourceColumn: spec
+
+		annotation SummarizationSetBy = Automatic
+
+	column color
+		dataType: string
+		lineageTag: 7c3fa76f-57e5-407b-aecd-3a11b27ef6cc
+		summarizeBy: none
+		sourceColumn: color
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		lineageTag: 9cd2a2aa-6d49-4208-beff-ed7ebd71db23
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unit_cost
+		dataType: double
+		lineageTag: 26a11566-280b-4964-8d65-3b05ffdfb928
+		summarizeBy: sum
+		sourceColumn: unit_cost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column weight_kg
+		dataType: double
+		lineageTag: 44c1c855-eb88-4c78-bd1b-b2eae0bf7d50
+		summarizeBy: sum
+		sourceColumn: weight_kg
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Img
+		dataType: string
+		lineageTag: 0095044a-4aa3-4538-93d5-07ab31a9bd0e
+		summarizeBy: none
+		sourceColumn: Img
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product = m
+		mode: import
+		source =
+				let
+				    Source = Folder,
+				    #"C:\Users\NIthya Sree\Downloads\powerbi\_dim_product csv" = Source{[#"Folder Path"=folder_path,Name="dim_product.csv"]}[Content],
+				    #"Imported CSV" = Csv.Document(#"C:\Users\NIthya Sree\Downloads\powerbi\_dim_product csv",[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Imported CSV", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"product_id", Int64.Type}, {"product_key", type text}, {"product_name", type text}, {"category", type text}, {"product_line", type text}, {"spec", type text}, {"color", type text}, {"unit_price", type number}, {"unit_cost", type number}, {"weight_kg", type number}, {"Img", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
